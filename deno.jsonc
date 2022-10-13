@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "files:create": "deno run --allow-env --allow-write --allow-read --unstable create-1000-files.ts",
+    "clean": "rm -rf files"
+  }
+}
