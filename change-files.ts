@@ -32,15 +32,22 @@ for (let i = 0; i < 400; i++) {
 
 randomPaths.forEach((path) => {
   const content = Deno.readTextFileSync(path);
-  const lines = content.split("\n").filter((line) => line.trim() === "");
-  const randomIndex = Math.floor(lines.length * Math.random());
-  lines.splice(randomIndex, 0, lorem.generateParagraphs(1));
+  const lines = content.split("\n").filter((line) => line.trim() != "");
+
+  // Delete a paragraph
+  const randomDeleteIndex = Math.floor(lines.length * Math.random());
+  lines.splice(randomDeleteIndex, 1);
+
+  // Add a random paragraph
+  const randomAddIndex = Math.floor(lines.length * Math.random());
+  lines.splice(randomAddIndex, 0, lorem.generateParagraphs(1));
+
   const newContent = lines.join("\n\n").trim() + "\n";
   Deno.writeTextFileSync(path, newContent);
 });
 
 // Create new 1000 files in the directory
-// for (let i = 1000; i < 2000; i++) {
-//   const path = `./files/${i}.md`;
-//   Deno.writeTextFileSync(path, generateRandomFileBody());
-// }
+for (let i = 1000; i < 2000; i++) {
+  const path = `./files/${i}.md`;
+  Deno.writeTextFileSync(path, generateRandomFileBody());
+}
